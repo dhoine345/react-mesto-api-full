@@ -1,7 +1,7 @@
 export const apiConfig = {
   baseUrl: 'http://api.lue42.students.nomoredomains.sbs',
   headers: {
-    //authorization: 'f9713832-a995-4262-9f76-657fa4ac03ca',
+    authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2ZGEyYjMxYTlmNzE5YmJjMTQ5MzYiLCJpYXQiOjE2NTcyMDM5MzIsImV4cCI6MTY1NzgwODczMn0.npgd_x6HNaxIa0usVfDYCSlubMJqNWHZH-qnmpqBo7U',
     'Content-Type': 'application/json'
   }
 };

@@ -7,6 +7,7 @@ class Api {
   }
 
   _getResponseData(res) {
+    console.log('res api 10', res)
     if (!res.ok) {
         return Promise.reject(`Ошибка: ${res.status}`);
     }
@@ -15,14 +16,18 @@ class Api {
 
   getProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._header
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('jwt')}`
+      }
     })
-      .then(res => this._getResponseData(res))
+    .then(res => this._getResponseData(res))
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: this._header
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('jwt')}`
+      }
     })
       .then(res => this._getResponseData(res))
   }

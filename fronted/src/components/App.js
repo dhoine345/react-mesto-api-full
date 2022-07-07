@@ -33,11 +33,11 @@ function App() {
   const [email, setEmail] = useState("");
   const history = useHistory();
 
-  useEffect(() => {
+  /*useEffect(() => {
     if(loggedIn) {
       history.push('/')
     }
-  }, [loggedIn]);
+  }, [loggedIn]);*/
 
   useEffect(() => {
     checkToken();
@@ -45,15 +45,18 @@ function App() {
 
   useEffect(() => {
     if(loggedIn) {
+      console.log('login app 48', loggedIn)
       Promise.all([api.getProfile(), api.getInitialCards()])
         .then(([userData, cardsData]) => {
-          setCurrentUser(userData)
-          setCards(cardsData);
+          console.log('cardsData app 51', cardsData)
+          console.log('userdata app 51', userData)
+          setCurrentUser(userData.data)
+          setCards(cardsData.data);
         }).catch(err => {
         console.log(`Ошибка: ${ err }`)
         })
     }
-  },[]);
+  },[loggedIn]);
 
   const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
   const handleAddPlaceClick = () => setisAddPlacePopupOpen(true);
@@ -128,8 +131,10 @@ function App() {
     if(localStorage.getItem('jwt')) {
       getContent(token)
         .then(res => {
+          console.log('res app 132', res)
           setEmail(res.data.email);
           setLoggedIn(true);
+          history.push('/');
         })
         .catch(err => console.log(err.message));
     }
