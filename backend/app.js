@@ -55,7 +55,7 @@ app.use(function(req, res, next) {
   return next();
 });
 
-app.use(requestLogger);
+//app.use(requestLogger);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
