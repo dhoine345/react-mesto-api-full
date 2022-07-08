@@ -7,7 +7,7 @@ const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { regexUrl } = require('./utils/constants');
 const NotFoundError = require('./utils/errors/NotFoundError');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+//const { requestLogger, errorLogger } = require('./middlewares/logger');
 //const cors = require('./middlewares/cors')
 
 const { PORT = 3000 } = process.env;
@@ -36,23 +36,22 @@ const allowedCors = [
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
 app.use(function(req, res, next) {
-  const { origin } = req.headers;
   const { method } = req;
+  const { origin } = req.headers;
   const requestHeaders = req.headers['access-control-request-headers'];
+
+  res.header('Access-Control-Allow-Credentials', 'true');
 
   if (allowedCors.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
   }
 
   if (method === 'OPTIONS') {
-    if (allowedCors.includes(origin)) {
-      res.header('Access-Control-Allow-Origin', origin);
-    }
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
     res.header('Access-Control-Allow-Headers', requestHeaders);
-    return res.end();
+    res.end();
   }
-  return next();
+  next();
 });
 
 //app.use(requestLogger);
@@ -78,7 +77,7 @@ app.use(auth);
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
 
-app.use(errorLogger);
+//app.use(errorLogger);
 
 app.use(() => {
   throw new NotFoundError(errorMessages.pageNotFound);
