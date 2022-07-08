@@ -90,7 +90,7 @@ function App() {
     setRenderLoading(true)
     api.editProfile(name, about)
       .then(res => {
-        setCurrentUser(res)
+        setCurrentUser(res.data)
         closeAllPopups()
       }).catch(err => {
         console.log(`Ошибка: ${ err }`)
