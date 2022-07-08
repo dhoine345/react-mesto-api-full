@@ -45,7 +45,6 @@ function App() {
 
   useEffect(() => {
     if(loggedIn) {
-      console.log('login app 48', loggedIn)
       Promise.all([api.getProfile(), api.getInitialCards()])
         .then(([userData, cardsData]) => {
           console.log('cardsData app 51', cardsData)
@@ -63,14 +62,18 @@ function App() {
   const handleEditAvatarClick = () => setisEditAvatarPopupOpen(true);
   const handleCardClick = (card) => setSelectedCard(card);
   const handleDeleteButtonClick = (card) => {
+    console.log('cardowner app 66', card)
+    console.log('currentuser app 67', currentUser)
     setDeleteConfirmPopupOpen(true);
     setSelectedDeleteCard(card);
   }
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    console.log('card app 72', card)
+    const isLiked = card.likes.some(i => i === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      let dataNewCard = newCard.data;
+      setCards((state) => state.map((c) => c._id === card._id ? dataNewCard : c));
     }).catch(err => {
       console.log(`Ошибка: ${ err }`)
     });
@@ -100,7 +103,7 @@ function App() {
   const handleUpdateAvatar = ({avatar}) => {
     setRenderLoading(true)
     api.editAvatar(avatar).then(res => {
-      setCurrentUser(res)
+      setCurrentUser(res.data)
       closeAllPopups()
     }).catch(err => {
       console.log(`Ошибка: ${ err }`)
@@ -110,8 +113,10 @@ function App() {
   const handleAddPlaceSubmit = ({name, link}) => {
     setRenderLoading(true)
     api.addCard(name, link).then(newCard => {
-      setCards([newCard, ...cards])
-      closeAllPopups()
+      console.log('newcard app 113', newCard )
+      let dataNewCard = newCard.data;
+      setCards([dataNewCard, ...cards]);
+      closeAllPopups();
     }).catch(err => {
       console.log(`Ошибка: ${ err }`)
     }).finally(() => setRenderLoading(false));
@@ -131,7 +136,6 @@ function App() {
     if(localStorage.getItem('jwt')) {
       getContent(token)
         .then(res => {
-          console.log('res app 132', res)
           setEmail(res.data.email);
           setLoggedIn(true);
           history.push('/');

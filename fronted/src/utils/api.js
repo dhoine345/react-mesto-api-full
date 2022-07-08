@@ -7,7 +7,6 @@ class Api {
   }
 
   _getResponseData(res) {
-    console.log('res api 10', res)
     if (!res.ok) {
         return Promise.reject(`Ошибка: ${res.status}`);
     }
@@ -50,7 +49,10 @@ class Api {
   addCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: this._header,
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name,
         link
@@ -62,7 +64,10 @@ class Api {
   deleteCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'DELETE',
-      headers: this._header
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json'
+      },
     })
       .then(res => this._getResponseData(res))
   }
@@ -70,7 +75,10 @@ class Api {
   changeLikeCardStatus(id, isLiked) {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: !isLiked ? 'DELETE' : 'PUT',
-      headers: this._header
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json'
+      },
     })
       .then(res => this._getResponseData(res))
   }
@@ -78,7 +86,10 @@ class Api {
   editAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._header,
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         avatar
       })
