@@ -15,18 +15,14 @@ class Api {
 
   getProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('jwt')}`
-      }
+      headers: this._header
     })
     .then(res => this._getResponseData(res))
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('jwt')}`
-      }
+      headers: this._header
     })
       .then(res => this._getResponseData(res))
   }
@@ -34,10 +30,7 @@ class Api {
   editProfile(name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Content-Type': 'application/json'
-      },
+      headers: this._header,
       body: JSON.stringify({
         name,
         about
@@ -49,10 +42,7 @@ class Api {
   addCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Content-Type': 'application/json'
-      },
+      headers: this._header,
       body: JSON.stringify({
         name,
         link
@@ -64,10 +54,7 @@ class Api {
   deleteCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'DELETE',
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Content-Type': 'application/json'
-      },
+      headers: this._header,
     })
       .then(res => this._getResponseData(res))
   }
@@ -75,10 +62,7 @@ class Api {
   changeLikeCardStatus(id, isLiked) {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: !isLiked ? 'DELETE' : 'PUT',
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Content-Type': 'application/json'
-      },
+      headers: this._header
     })
       .then(res => this._getResponseData(res))
   }
@@ -86,10 +70,7 @@ class Api {
   editAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Content-Type': 'application/json'
-      },
+      headers: this._header,
       body: JSON.stringify({
         avatar
       })

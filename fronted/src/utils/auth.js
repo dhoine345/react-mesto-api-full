@@ -1,4 +1,4 @@
-const BASE_URL = 'http://api.lue42.students.nomoredomains.sbs';
+import { BASE_URL } from "./constants";
 
 function getResponseData(res) {
   if (!res.ok) {
