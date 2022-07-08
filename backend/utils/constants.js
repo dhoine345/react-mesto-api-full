@@ -22,11 +22,23 @@ const resCodes = {
   UNAUTHORIZED: 401,
 };
 
-// eslint-disable-next-line no-useless-escape
+const allowedCors = [
+  'https://lue42.students.nomoredomains.sbs',
+  'http://lue42.students.nomoredomains.sbs',
+  'http://localhost:3000',
+  'https://localhost:3000',
+  'https://api.lue42.students.nomoredomains.sbs',
+  'http://api.lue42.students.nomoredomains.sbs',
+];
+
+const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+
 const regexUrl = /https?:\/\/[www.]*[\w-]+\.[a-z]+[\/\w\S]*/;
 
 module.exports = {
   errorMessages,
   resCodes,
   regexUrl,
+  allowedCors,
+  DEFAULT_ALLOWED_METHODS,
 };
