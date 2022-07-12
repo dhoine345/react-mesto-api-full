@@ -24,9 +24,9 @@ app.use(express.urlencoded({
   extended: true,
 }));
 
-app.use(cors);
-
 app.use(requestLogger);
+
+app.use(cors);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
