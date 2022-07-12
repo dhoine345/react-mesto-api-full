@@ -8,7 +8,7 @@ const auth = require('./middlewares/auth');
 const { regexUrl } = require('./utils/constants');
 const NotFoundError = require('./utils/errors/NotFoundError');
 //const { requestLogger, errorLogger } = require('./middlewares/logger');
-//const cors = require('./middlewares/cors')
+const cors = require('./middlewares/cors')
 
 const { PORT = 3000 } = process.env;
 
@@ -24,35 +24,7 @@ app.use(express.urlencoded({
   extended: true,
 }));
 
-const allowedCors = [
-  'https://lue42.students.nomoredomains.sbs',
-  'http://lue42.students.nomoredomains.sbs',
-  'http://localhost:3000',
-  'https://localhost:3000',
-  'https://api.lue42.students.nomoredomains.sbs',
-  'http://api.lue42.students.nomoredomains.sbs',
-];
-
-const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-
-app.use(function(req, res, next) {
-  const { method } = req;
-  const { origin } = req.headers;
-  const requestHeaders = req.headers['access-control-request-headers'];
-
-  res.header('Access-Control-Allow-Credentials', 'true');
-
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    res.end();
-  }
-  next();
-});
+app.use(cors);
 
 //app.use(requestLogger);
 
