@@ -7,7 +7,7 @@ const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { regexUrl } = require('./utils/constants');
 const NotFoundError = require('./utils/errors/NotFoundError');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+//const { requestLogger, errorLogger } = require('./middlewares/logger');
 //const cors = require('./middlewares/cors')
 
 const { PORT = 3000 } = process.env;
@@ -54,7 +54,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(requestLogger);
+//app.use(requestLogger);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -77,7 +77,7 @@ app.use(auth);
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
 
-app.use(errorLogger);
+//app.use(errorLogger);
 
 app.use(() => {
   throw new NotFoundError(errorMessages.pageNotFound);
