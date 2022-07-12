@@ -8,6 +8,6 @@ export const apiConfig = {
 
 export const successAuth = 'Вы успешно зарегистрировались!';
 export const unSuccessAuth = 'Что-то пошло не так! Попробуйте еще раз.';
-export const BASE_URL = 'http://api.lue42.students.nomoredomains.sbs';
+export const BASE_URL = 'https://api.lue42.students.nomoredomains.sbs';
 
 
