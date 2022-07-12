@@ -62,14 +62,11 @@ function App() {
   const handleEditAvatarClick = () => setisEditAvatarPopupOpen(true);
   const handleCardClick = (card) => setSelectedCard(card);
   const handleDeleteButtonClick = (card) => {
-    console.log('cardowner app 66', card)
-    console.log('currentuser app 67', currentUser)
     setDeleteConfirmPopupOpen(true);
     setSelectedDeleteCard(card);
   }
 
   const handleCardLike = (card) => {
-    console.log('card app 72', card)
     const isLiked = card.likes.some(i => i === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
       let dataNewCard = newCard.data;
@@ -113,7 +110,6 @@ function App() {
   const handleAddPlaceSubmit = ({name, link}) => {
     setRenderLoading(true)
     api.addCard(name, link).then(newCard => {
-      console.log('newcard app 113', newCard )
       let dataNewCard = newCard.data;
       setCards([dataNewCard, ...cards]);
       closeAllPopups();

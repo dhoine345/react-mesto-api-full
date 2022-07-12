@@ -1,5 +1,5 @@
 export const apiConfig = {
-  baseUrl: 'http://api.lue42.students.nomoredomains.sbs',
+  baseUrl: 'https://api.lue42.students.nomoredomains.sbs',
   headers: {
     authorization: `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json',
