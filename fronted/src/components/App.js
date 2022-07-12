@@ -33,12 +33,6 @@ function App() {
   const [email, setEmail] = useState("");
   const history = useHistory();
 
-  /*useEffect(() => {
-    if(loggedIn) {
-      history.push('/')
-    }
-  }, [loggedIn]);*/
-
   useEffect(() => {
     checkToken();
   },[]);
