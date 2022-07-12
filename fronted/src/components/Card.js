@@ -5,7 +5,6 @@ const Card = ({card, onCardClick, onCardLike, onCardDelete}) => {
   const currentUser = useContext(CurrentUserContext);
   const isOwn = card.owner === currentUser._id;
   const isLiked = card.likes.some(i => i === currentUser._id);
-  console.log('isliked', card)
 
   const cardDeleteButtonClassName = (
     `element__delete-button ${isOwn ? 'element__delete-button_visible' : 'element__delete-button_hidden'}`
