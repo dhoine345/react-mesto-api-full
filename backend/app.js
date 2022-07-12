@@ -7,7 +7,7 @@ const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { regexUrl } = require('./utils/constants');
 const NotFoundError = require('./utils/errors/NotFoundError');
-//const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors')
 
 const { PORT = 3000 } = process.env;
@@ -26,7 +26,7 @@ app.use(express.urlencoded({
 
 app.use(cors);
 
-//app.use(requestLogger);
+app.use(requestLogger);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -53,7 +53,7 @@ app.use(() => {
   throw new NotFoundError(errorMessages.pageNotFound);
 });
 
-//app.use(errorLogger);
+app.use(errorLogger);
 
 app.use(errors());
 
