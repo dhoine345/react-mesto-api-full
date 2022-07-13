@@ -1,4 +1,4 @@
-const { resCodes, errorMessages } = require('./utils/constants');
+const { resCodes, errorMessages } = require('../utils/constants');
 
 module.exports = ((err, req, res, next) => {
   const { statusCode = resCodes.INTERNAL_SERVER_ERROR, message } = err;
