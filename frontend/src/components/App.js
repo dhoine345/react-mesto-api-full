@@ -41,10 +41,10 @@ function App() {
     if(loggedIn) {
       Promise.all([api.getProfile(), api.getInitialCards()])
         .then(([userData, cardsData]) => {
-          setCurrentUser(userData.data)
+          setCurrentUser(userData.data);
           setCards(cardsData.data);
         }).catch(err => {
-        console.log(`Ошибка: ${ err }`)
+        console.log(err)
         })
     }
   },[loggedIn]);
@@ -64,7 +64,7 @@ function App() {
       let dataNewCard = newCard.data;
       setCards((state) => state.map((c) => c._id === card._id ? dataNewCard : c));
     }).catch(err => {
-      console.log(`Ошибка: ${ err }`)
+      console.log(err)
     });
   };
 
@@ -74,7 +74,7 @@ function App() {
       setCards((state) => [...state.filter(c => c._id !== card._id)])
       closeAllPopups()
     }).catch(err => {
-      console.log(`Ошибка: ${ err }`)
+      console.log(err)
     }).finally(() => setRenderLoading(false));
   });
 
@@ -85,7 +85,7 @@ function App() {
         setCurrentUser(res.data)
         closeAllPopups()
       }).catch(err => {
-        console.log(`Ошибка: ${ err }`)
+        console.log(err)
       }).finally(() => setRenderLoading(false));
   };
 
@@ -95,7 +95,7 @@ function App() {
       setCurrentUser(res.data)
       closeAllPopups()
     }).catch(err => {
-      console.log(`Ошибка: ${ err }`)
+      console.log(err)
     }).finally(() => setRenderLoading(false));
   };
 
@@ -106,7 +106,7 @@ function App() {
       setCards([dataNewCard, ...cards]);
       closeAllPopups();
     }).catch(err => {
-      console.log(`Ошибка: ${ err }`)
+      console.log(err)
     }).finally(() => setRenderLoading(false));
   }
 
@@ -151,12 +151,10 @@ function App() {
     authorize(email, password)
       .then(res => {
         if(res.token) {
-          setInfoTooltipPopupOpen(true);
           setRegOk(true);
           localStorage.setItem('jwt', res.token);
           checkToken();
         }
-        setLoggedIn(true);
       }).catch(() => {
         setInfoTooltipPopupOpen(true);
         setRegOk(false);
