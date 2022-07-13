@@ -1,16 +1,17 @@
+const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { createUser, login } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 const { regexUrl } = require('../utils/constants');
 const NotFoundError = require('../utils/errors/NotFoundError');
 
-app.post('/signin', celebrate({
+router.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
   }),
 }), login);
-app.post('/signup', celebrate({
+router.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
@@ -20,12 +21,12 @@ app.post('/signup', celebrate({
   }),
 }), createUser);
 
-app.use(auth);
+router.use(auth);
 
-app.use('/users', require('./users'));
-app.use('/cards', require('./cards'));
+router.use('/users', require('./users'));
+router.use('/cards', require('./cards'));
 
-app.use(() => {
+router.use(() => {
   throw new NotFoundError(errorMessages.pageNotFound);
 });
 
