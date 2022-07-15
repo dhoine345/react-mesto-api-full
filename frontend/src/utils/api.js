@@ -63,7 +63,10 @@ class Api {
   deleteCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'DELETE',
-      headers: this._header,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      },
     })
       .then(res => this._getResponseData(res))
   }
@@ -71,7 +74,10 @@ class Api {
   changeLikeCardStatus(id, isLiked) {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: !isLiked ? 'DELETE' : 'PUT',
-      headers: this._header
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      },
     })
       .then(res => this._getResponseData(res))
   }
@@ -79,7 +85,10 @@ class Api {
   editAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._header,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      },
       body: JSON.stringify({
         avatar
       })
